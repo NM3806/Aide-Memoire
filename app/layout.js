@@ -1,6 +1,13 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Geist, Geist_Mono } from "next/font/google";
+import "@liveblocks/react-ui/styles.css";
+
+export const metadata = {
+  title: "aide-memoire",
+  description: "By NM3806",
+};
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -12,10 +19,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
-  title: "aide-memoire",
-  description: "By NM3806",
-};
+
 
 export default function RootLayout({ children }) {
   return (
@@ -25,6 +29,7 @@ export default function RootLayout({ children }) {
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           {children}
+          <Toaster/>
         </body>
       </html>
     </ClerkProvider>

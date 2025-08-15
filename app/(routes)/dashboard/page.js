@@ -1,13 +1,13 @@
-import { UserButton } from '@clerk/nextjs'
 import React from 'react'
-import Header from './_components/header'
+import Header from './_components/Header'
+import WorkspaceList from './_components/WorkspaceList'
 
 function Dashboard() {
   return (
-    <div className='flex justify-between items-center p-1 shadow-sm'>
+    <div>
       <Header/>
-
-      <UserButton/>
+      
+      <WorkspaceList/>
     </div>
   )
 }
