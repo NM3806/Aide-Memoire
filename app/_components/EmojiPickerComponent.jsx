@@ -9,7 +9,7 @@ function EmojiPickerComponent({ children, setEmojiIcon }) {
                 {children}
             </div>
             {openEmojiPicker &&
-                <div className='absolute z-1 p-1'>
+                <div className='absolute z-2 p-1'>
                     <EmojiPicker 
                         onEmojiClick={(e) => {
                             setEmojiIcon(e.emoji);

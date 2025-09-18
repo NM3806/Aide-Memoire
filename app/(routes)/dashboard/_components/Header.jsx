@@ -3,6 +3,7 @@ import Logo from '@/app/_components/Logo'
 import { db } from '@/config/firebaseConfig';
 import { OrganizationSwitcher, useAuth, UserButton, useUser } from '@clerk/nextjs'
 import { doc, setDoc } from 'firebase/firestore';
+import Link from 'next/link';
 import React, { useEffect } from 'react'
 
 function Header() {
@@ -29,7 +30,9 @@ function Header() {
 
   return (
     <div className='flex justify-between items-center p-1 shadow-sm'>
-      <Logo />
+      <Link href="/dashboard" className='cursor-pointer'>
+        <Logo />
+      </Link>
       <OrganizationSwitcher
         afterCreateOrganizationUrl={'/dashboard'}
         afterLeaveOrganizationUrl={'/dashboard'}

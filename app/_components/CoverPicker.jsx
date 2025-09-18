@@ -35,15 +35,20 @@ function CoverPicker({ children, setNewCover }) {
                 </DialogHeader>
                 <DialogFooter className="">
                     <DialogClose asChild>
-                        <Button type="button" variant="secondary"
-                            className="cursor-pointer">
+                        <Button type="button" variant="secondary" className="cursor-pointer">
                             Close
                         </Button>
                     </DialogClose>
-                    <Button type="button" onClick={() => setNewCover(selectedCover)}
-                        className="cursor-pointer">
-                        Update
-                    </Button>
+
+                    <DialogClose asChild>
+                        <Button
+                            type="button"
+                            onClick={() => setNewCover(selectedCover)}
+                            className="cursor-pointer"
+                        >
+                            Update
+                        </Button>
+                    </DialogClose>
                 </DialogFooter>
             </DialogContent>
         </Dialog>

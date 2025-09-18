@@ -11,6 +11,8 @@ import { useUser } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 import { Progress } from '@/components/ui/progress'
 import { toast } from 'sonner'
+import NotificationBox from './NotificationBox'
+import Link from 'next/link'
 
 function SideNav({ params }) {
     const MAX_FILES = Number(5);
@@ -18,22 +20,45 @@ function SideNav({ params }) {
     const router = useRouter();
     const [documentList, setDocumentList] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [workspaceInfo, setWorkspaceInfo] = useState(null);
 
     useEffect(() => {
         params && getDocumentList();
+        params && getWorkspaceInfo();
     }, [params]);
+
+    const getWorkspaceInfo = () => {
+        if (!params?.workspaceId) return;
+        const docRef = doc(db, 'Workspace', params.workspaceId.toString());
+
+        const unsubscribe = onSnapshot(docRef, (doc) => {
+            if (doc.exists()) {
+                setWorkspaceInfo(doc.data());
+            } else {
+                console.log("No such workspace!");
+            }
+        });
+
+        // Cleanup subscription on component unmount
+        return () => unsubscribe();
+    }
+
 
     const getDocumentList = () => {
         const q = query(collection(db, 'WorkspaceDocuments'),
             where("workspaceId", "==", Number(params?.workspaceId)));
 
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
-            setDocumentList([]);
+            setDocumentList([]); 
 
+            const docs = [];
             querySnapshot.forEach((doc) => {
-                setDocumentList(documentList => [...documentList, doc.data()])
+                docs.push(doc.data());
             })
+            setDocumentList(docs);
         })
+
+        return () => unsubscribe();
     }
 
     const createNewDocument = async () => {
@@ -75,14 +100,23 @@ function SideNav({ params }) {
     return (
         <div className='h-screen md:w-72 hidden md:block fixed bg-[#FFF9F0] p-5 shadow-md'>
             <div className='flex justify-between items-center '>
-                <Logo />
+                <Link href="/dashboard" className='cursor-pointer'>
+                    <Logo />
+                </Link>
 
-                <Bell className='h-5 w-5 text-gray-500 ' />
+                {params?.documentId && (
+                    <NotificationBox params={params}>
+                        <Bell className="h-5 w-5 text-gray-500 cursor-pointer" />
+                    </NotificationBox>
+                )}
+
             </div>
             <hr className='my-5'></hr>
             <div>
                 <div className='flex justify-between items-center'>
-                    <h2 className='font-medium'>Workspace Name</h2>
+                    <h2 className='font-medium truncate'>
+                        {workspaceInfo?.emoji} {workspaceInfo?.workspaceName || 'Loading...'}
+                    </h2>
                     <Button size={"sm"} className='cursor-pointer'
                         onClick={createNewDocument}
                     >

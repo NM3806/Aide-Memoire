@@ -3,22 +3,27 @@
 
 @custom-variant dark (&:is(.dark *));
 
-h1.ce-header{
+h1.ce-header {
   @apply text-3xl font-bold
 }
-h2.ce-header{
+
+h2.ce-header {
   @apply text-2xl font-semibold
 }
-h3.ce-header{
+
+h3.ce-header {
   @apply text-xl font-semibold
 }
-h4.ce-header{
+
+h4.ce-header {
   @apply text-lg font-semibold
 }
-h5.ce-header{
+
+h5.ce-header {
   @apply text-base font-semibold
 }
-h6.ce-header{
+
+h6.ce-header {
   @apply text-sm font-semibold
 }
 
@@ -93,6 +98,17 @@ h6.ce-header{
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "Fira Code", monospace;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+code,
+pre {
+  font-family: var(--font-mono);
 }
 
 .dark {
@@ -129,10 +145,46 @@ h6.ce-header{
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+@keyframes pan-grid {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 32px 32px;
+  }
+}
+
+.bg-grid {
+  background-image: linear-gradient(to right, hsl(var(--border)) 1px, transparent 1px),
+    linear-gradient(to bottom, hsl(var(--border)) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: center;
+  opacity: 0.2;
+}
+
+.bg-grid {
+  background-image: linear-gradient(
+      to right,
+      hsl(var(--border)) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, hsl(var(--border)) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: center;
+  opacity: 0.2;
+  /* Applying the slow animation here */
+  animation: pan-grid 45s linear infinite;
+}
+
+.auth-card {
+  @apply transition-all duration-300 hover:shadow-xl hover:scale-[1.01];
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }

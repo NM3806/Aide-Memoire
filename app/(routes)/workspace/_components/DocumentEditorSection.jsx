@@ -26,17 +26,17 @@ function DocumentEditorSection({ params }) {
       <div className='grid grid-cols-4'>
         <div className='col-span-3'>
           <RichDocumentEditor params={params} />
-
-          <div className='fixed right-5 bottom-5'>
-            <Button
-              onClick={() => setOpenComments(!openComments)}
-              className='cursor-pointer'
-            >
-              {openComments ? <X /> : <MessageCircle />}
-            </Button>
-            {openComments && <CommentBox />}
-          </div>
         </div>
+        <div className='fixed right-5 bottom-5'>
+          <Button
+            onClick={() => setOpenComments(!openComments)}
+            className='cursor-pointer'
+          >
+            {openComments ? <X /> : <MessageCircle />}
+          </Button>
+          {openComments && <CommentBox />}
+        </div>
+
       </div>
     </div>
   );
