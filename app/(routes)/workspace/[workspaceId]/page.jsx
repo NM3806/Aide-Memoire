@@ -51,28 +51,22 @@ function Workspace({ params }) {
 
         {/* Illustration Section */}
         <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
+          initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
           className="h-full flex flex-col items-center justify-center text-center m-4"
         >
-          <motion.div
-            animate={{ y: [0, -10, 0] }}
-            transition={{ repeat: Infinity, duration: 3 }}
-          >
-            <Image
-              src="/undraw_ideas-flow.svg"
-              alt="Character illustration"
-              width={350}
-              height={350}
-              priority
-              className="drop-shadow-lg"
-            />
-          </motion.div>
+          <Image
+            src="/undraw_ideas-flow.svg"
+            alt="Character illustration"
+            width={350}
+            height={350}
+            priority
+            className="drop-shadow-lg"
+          />
 
           <p className="text-gray-500 mt-4 max-w-md">
-            Select a document from the sidebar to begin editing or create a new
-            one.
+            Select a document from the sidebar to begin editing or create a new one.
           </p>
         </motion.div>
       </div>

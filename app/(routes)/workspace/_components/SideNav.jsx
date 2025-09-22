@@ -1,6 +1,4 @@
 "use client";
-import Logo from "@/app/_components/Logo";
-import { Button } from "@/components/ui/button";
 import {
     collection,
     doc,
@@ -9,6 +7,8 @@ import {
     setDoc,
     where,
 } from "firebase/firestore";
+import Logo from "@/app/_components/Logo";
+import { Button } from "@/components/ui/button";
 import { Bell, Loader2Icon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import DocumentList from "./DocumentList";

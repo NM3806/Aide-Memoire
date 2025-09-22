@@ -15,7 +15,7 @@ function WorkspaceDocument({ params }) {
         <SideNav params={resolvedParams} />
 
         {/* Document Section */}
-        <div className="flex-1 md:ml-72 bg-[#FAFAFF] min-h-screen p-4">
+        <div className="flex-1 md:ml-72 bg-[#FAFAFF] min-h-screen">
           <DocumentEditorSection params={resolvedParams} />
         </div>
       </div>
