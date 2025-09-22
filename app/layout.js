@@ -2,7 +2,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/sonner";
 import { Inter, Fira_Code } from "next/font/google";
-import { LoaderProvider } from "@/context/LoaderContext";
+import LoaderProvider from "@/context/LoaderContext";
 import "@liveblocks/react-ui/styles.css";
 
 const inter = Inter({

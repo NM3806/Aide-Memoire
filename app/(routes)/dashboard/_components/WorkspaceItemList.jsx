@@ -17,7 +17,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-function WorkspaceItemList({ workspaceList }) {
+function WorkspaceItemList({ workspaceList, view }) {
   const router = useRouter();
   const [localWorkspaceList, setLocalWorkspaceList] = useState([]);
 
@@ -47,25 +47,44 @@ function WorkspaceItemList({ workspaceList }) {
   };
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-col-4 gap-6 mt-6">
+    <div
+      className={
+        view === "grid"
+          ? "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6"
+          : "flex flex-col gap-4 mt-6"
+      }
+    >
       {localWorkspaceList &&
         localWorkspaceList.map((workspace, index) => (
           <AlertDialog key={index}>
-            <div className="border shadow-xl rounded-xl hover:scale-105 transition-all">
+            <div
+              className={`border shadow-md hover:shadow-lg rounded-xl transition-all ${
+                view === "list" ? "flex items-center gap-4 p-3" : ""
+              }`}
+            >
               <div
                 onClick={() => onClickWorkspaceItem(workspace.id)}
-                className="cursor-pointer"
+                className="cursor-pointer flex-shrink-0"
               >
                 <Image
                   src={workspace?.coverImage}
-                  width={400}
-                  height={200}
+                  width={view === "list" ? 100 : 400}
+                  height={view === "list" ? 60 : 200}
                   alt="workspace cover"
-                  className="h-[150px] object-cover rounded-t-xl"
+                  className={`object-cover ${
+                    view === "list"
+                      ? "h-[60px] w-[100px] rounded-md"
+                      : "h-[150px] w-full rounded-t-xl"
+                  }`}
                 />
               </div>
-              <div className="p-4 rounded-b-xl flex justify-between items-center">
-                <h2 className="flex gap-2 truncate">
+
+              <div
+                className={`p-4 flex justify-between items-center ${
+                  view === "list" ? "flex-1" : "rounded-b-xl"
+                }`}
+              >
+                <h2 className="flex gap-2 truncate font-medium">
                   {workspace?.emoji} {workspace.workspaceName}
                 </h2>
 
@@ -75,19 +94,24 @@ function WorkspaceItemList({ workspaceList }) {
               </div>
             </div>
 
+            {/* Confirm delete */}
             <AlertDialogContent className="border-destructive/50">
               <AlertDialogHeader>
                 <AlertDialogTitle className="text-destructive">
                   Are you absolutely sure?
                 </AlertDialogTitle>
-                <AlertDialogDescription className="text-red-500/90"> 
-                  This action cannot be undone. This will permanently delete your
-                  workspace and all associated documents.
+                <AlertDialogDescription className="text-red-500/90">
+                  This action cannot be undone. This will permanently delete
+                  your workspace and all associated documents.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction variant="destructive" onClick={() => deleteWorkspace(workspace.id)}> 
+                <AlertDialogCancel className={"cursor-pointer"}>Cancel</AlertDialogCancel>
+                <AlertDialogAction
+                  variant="destructive"
+                  onClick={() => deleteWorkspace(workspace.id)}
+                  className={"cursor-pointer"}
+                >
                   Continue
                 </AlertDialogAction>
               </AlertDialogFooter>

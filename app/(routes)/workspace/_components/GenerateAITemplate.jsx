@@ -43,7 +43,7 @@ export default function GenerateAITemplate({ setGenerateAIOutput }) {
 
   return (
     <>
-      <Button onClick={() => setOpen(true)}>Generate with AI</Button>
+      <Button onClick={() => setOpen(true)} className={"cursor-pointer"}>Generate with AI</Button>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="max-w-lg">
           <DialogHeader>
@@ -59,7 +59,7 @@ export default function GenerateAITemplate({ setGenerateAIOutput }) {
                   <Button variant="secondary" onClick={() => setOpen(false)}>
                     Cancel
                   </Button>
-                  {/* 6. The button no longer needs its own loading state */}
+
                   <Button onClick={handleGenerate} disabled={!prompt.trim()}>
                     Generate
                   </Button>

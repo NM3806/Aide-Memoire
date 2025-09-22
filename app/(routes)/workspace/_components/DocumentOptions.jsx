@@ -15,16 +15,16 @@ function DocumentOptions({doc, deleteDocument}) {
             
             <DropdownMenu>
                 <DropdownMenuTrigger> 
-                    <MoreVertical className='h-4 w-4 '/>
+                    <MoreVertical className='h-4 w-4 cursor-pointer'/>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                    <DropdownMenuItem className={'flex gap-2'}>
-                        <Link2Icon className='h-4 w-4'/> Share
+                    <DropdownMenuItem className={'flex gap-2 cursor-pointer'}>
+                        <Link2Icon className='h-4 w-4 '/> Share
                     </DropdownMenuItem>
-                    <DropdownMenuItem className={'flex gap-2'}>
+                    <DropdownMenuItem className={'flex gap-2 cursor-pointer'}>
                         <PenBox className='h-4 w-4'/> Rename
                     </DropdownMenuItem>
-                    <DropdownMenuItem className={'flex gap-2 text-red-500'}
+                    <DropdownMenuItem className={'flex gap-2 text-red-500 cursor-pointer'}
                         onClick={() => deleteDocument(doc?.id)}
                     >
                         <Trash2 className='h-4 w-4 text-red-500'/> Delete

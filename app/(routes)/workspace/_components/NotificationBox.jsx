@@ -32,13 +32,21 @@ function NotificationBox({ children, params }) {
     return (
         <div>
             <Popover>
-                <PopoverTrigger>
-                    <div className='flex gap-1'>
+                <PopoverTrigger asChild>
+                    <button
+                        className="relative flex items-center justify-center rounded-full p-2 hover:bg-gray-100 active:scale-95 transition"
+                    >
                         {children}
-                        <span className='p-1 px-2 -ml-3 text-[7px] rounded-full bg-primary text-white'>{count}</span>
-                    </div>
+
+                        {count > 0 && (
+                            <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-[#6C63FF] text-white text-[10px] flex items-center justify-center shadow">
+                                {count}
+                            </span>
+                        )}
+                    </button>
                 </PopoverTrigger>
-                <PopoverContent className={'w-[400px]'}>
+
+                <PopoverContent className="w-[400px] shadow-lg rounded-xl p-4">
                     <InboxNotificationList>
                         {inboxNotifications.map((inboxNotification) => (
                             <InboxNotification

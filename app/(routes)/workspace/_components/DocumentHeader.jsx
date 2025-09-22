@@ -8,7 +8,7 @@ function DocumentHeader() {
         <div></div>
         <OrganizationSwitcher/>
         <div className='flex gap-2'>
-            <Button>Share</Button>
+            <Button className={"cursor-pointer"}>Share</Button>
             <UserButton/>
         </div>
     </div>

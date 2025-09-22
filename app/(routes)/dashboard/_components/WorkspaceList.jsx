@@ -13,6 +13,7 @@ function WorkspaceList() {
   const { user } = useUser();
   const { orgId } = useAuth();
   const [workspaceList, setWorkspaceList] = useState([]);
+  const [view, setView] = useState("grid");
 
   useEffect(() => {
     user && getWorkspaceList();
@@ -32,14 +33,14 @@ function WorkspaceList() {
   };
 
   return (
-    <div className="my-12 px-6 md:px-16 lg:px-28 xl:px-40">
+    <div className="my-12 px-6 md:px-16 lg:px-28">
       {/* Greeting + New workspace */}
       <div className="flex justify-between items-center">
-        <h2 className="font-bold text-3xl">
+        <h2 className="font-bold text-3xl tracking-tight">
           👋 Hi, {user?.firstName || user?.fullName}
         </h2>
         <Link href={"/createWorkspace"}>
-          <Button className="cursor-pointer flex items-center gap-2">
+          <Button className="cursor-pointer flex items-center gap-2 bg-[#6C63FF] hover:bg-[#5850e0] transition-colors">
             <Plus className="w-4 h-4" /> New Workspace
           </Button>
         </Link>
@@ -49,14 +50,24 @@ function WorkspaceList() {
       <div className="flex justify-between items-center mt-10">
         <h3 className="font-medium text-lg">Your Workspaces</h3>
         <div className="flex gap-3 text-muted-foreground">
-          <LayoutGrid className="w-5 h-5 cursor-pointer hover:text-foreground transition" />
-          <AlignLeft className="w-5 h-5 cursor-pointer hover:text-foreground transition" />
+          <LayoutGrid
+            className={`w-5 h-5 cursor-pointer transition ${
+              view === "grid" ? "text-[#6C63FF]" : "hover:text-foreground"
+            }`}
+            onClick={() => setView("grid")}
+          />
+          <AlignLeft
+            className={`w-5 h-5 cursor-pointer transition ${
+              view === "list" ? "text-[#6C63FF]" : "hover:text-foreground"
+            }`}
+            onClick={() => setView("list")}
+          />
         </div>
       </div>
 
       {/* Workspaces */}
       {workspaceList?.length === 0 ? (
-        <div className="flex flex-col items-center justify-center mt-16 p-10 border rounded-xl bg-muted/40">
+        <div className="flex flex-col items-center justify-center mt-16 p-10 border-2 border-dashed rounded-xl bg-muted/30">
           <Image
             src={"/workspace2.png"}
             unoptimized
@@ -67,18 +78,18 @@ function WorkspaceList() {
           <h2 className="mt-4 text-lg font-medium">
             You don’t have any workspaces yet
           </h2>
-          <p className="text-muted-foreground text-sm mt-1">
+          <p className="text-muted-foreground text-sm mt-1 max-w-xs text-center">
             Create a new workspace to start collaborating with your team.
           </p>
           <Link href={"/createWorkspace"}>
-            <Button className="mt-5 cursor-pointer">
-              + New Workspace
+            <Button className="mt-5 cursor-pointer bg-[#6C63FF] hover:bg-[#5850e0] transition-colors">
+              <Plus className="w-4 h-4 mr-2" /> New Workspace
             </Button>
           </Link>
         </div>
       ) : (
         <div className="mt-8">
-          <WorkspaceItemList workspaceList={workspaceList} />
+          <WorkspaceItemList workspaceList={workspaceList} view={view} />
         </div>
       )}
     </div>

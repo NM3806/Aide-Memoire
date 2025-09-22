@@ -1,10 +1,10 @@
-"use client"
-import Logo from '@/app/_components/Logo'
-import { db } from '@/config/firebaseConfig';
-import { OrganizationSwitcher, useAuth, UserButton, useUser } from '@clerk/nextjs'
-import { doc, setDoc } from 'firebase/firestore';
-import Link from 'next/link';
-import React, { useEffect } from 'react'
+"use client";
+import Logo from "@/app/_components/Logo";
+import { db } from "@/config/firebaseConfig";
+import { OrganizationSwitcher, useAuth, UserButton, useUser } from "@clerk/nextjs";
+import { doc, setDoc } from "firebase/firestore";
+import Link from "next/link";
+import React, { useEffect } from "react";
 
 function Header() {
   const { orgId } = useAuth();
@@ -12,34 +12,33 @@ function Header() {
 
   useEffect(() => {
     user && saveUserData();
-  }, [user])
+  }, [user]);
 
   const saveUserData = async () => {
     const docId = user?.primaryEmailAddress?.emailAddress;
     try {
-      await setDoc(doc(db, 'AMUser', docId), {
+      await setDoc(doc(db, "AMUser", docId), {
         name: user?.fullName,
         avatar: user?.imageUrl,
         email: user?.primaryEmailAddress?.emailAddress,
-      })
+      });
+    } catch (e) {
+      console.error("Error saving user data:", e);
     }
-    catch (e) {
-
-    }
-  }
+  };
 
   return (
-    <div className='flex justify-between items-center p-1 shadow-sm'>
-      <Link href="/dashboard" className='cursor-pointer'>
+    <div className="flex justify-between items-center p-4 border-b bg-background/80 backdrop-blur-sm">
+      <Link href="/dashboard" className="cursor-pointer">
         <Logo />
       </Link>
       <OrganizationSwitcher
-        afterCreateOrganizationUrl={'/dashboard'}
-        afterLeaveOrganizationUrl={'/dashboard'}
+        afterCreateOrganizationUrl={"/dashboard"}
+        afterLeaveOrganizationUrl={"/dashboard"}
       />
       <UserButton />
     </div>
-  )
+  );
 }
 
-export default Header
+export default Header;
