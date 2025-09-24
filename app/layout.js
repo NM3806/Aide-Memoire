@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { Inter, Fira_Code } from "next/font/google";
 import LoaderProvider from "@/context/LoaderContext";
 import "@liveblocks/react-ui/styles.css";
+import Script from "next/script";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -27,6 +28,8 @@ export default function RootLayout({ children }) {
         <body
           className={`${inter.variable} ${firaCode.variable} antialiased`}
         >
+          <Script src="https://checkout.razorpay.com/v1/checkout.js" />
+          
           <LoaderProvider>{children}</LoaderProvider>
           <Toaster />
         </body>
