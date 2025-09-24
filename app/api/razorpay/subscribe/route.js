@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { razorpay } from '@/lib/razorpay';
-import { getFirestore, query, collection, where, getDocs, updateDoc, addDoc, doc } from "firebase/firestore";
+import { razorpay } from '@/lib/razorpay'; 
+import { getFirestore, query, collection, where, getDocs, doc } from "firebase/firestore";
 
 // Helper to find a user and their Razorpay customer ID
 const findUser = async (clerkId) => {
@@ -41,7 +41,7 @@ export async function POST(req) {
     const subscription = await razorpay.subscriptions.create({
       plan_id: planId,
       customer_id: customerId,
-      total_count: 12,
+      total_count: 12, // For a 1-year plan. Adjust as needed.
       notes: {
         clerkId: userId, // Add clerkId to subscription metadata too
       },
