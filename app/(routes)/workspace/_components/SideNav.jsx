@@ -23,7 +23,7 @@ function SideNav({ params }) {
     const { user } = useUser();
     const [documentList, setDocumentList] = useState([]);
     const [workspaceInfo, setWorkspaceInfo] = useState(null);
-    
+
     const [userPlan, setUserPlan] = useState(null);
     const [isLoadingPlan, setIsLoadingPlan] = useState(true);
 
@@ -97,7 +97,7 @@ function SideNav({ params }) {
             transition={{ duration: 0.3 }}
             className="h-screen md:w-72 hidden md:block fixed bg-white border-r border-gray-200 p-5 shadow-sm"
         >
-            {/* Top Section */}
+            {/* ... Top Section (No changes here) ... */}
             <div className="flex justify-between items-center">
                 <Link href="/dashboard" className="cursor-pointer">
                     <Logo />
@@ -125,7 +125,7 @@ function SideNav({ params }) {
                     {creating ? <Loader2Icon className="h-4 w-4 animate-spin" /> : "+"}
                 </Button>
             </div>
-            {/* Document List */}
+            {/* ... Document List (No changes here) ... */}
             <DocumentList documentList={documentList} params={params} />
             {documentList.length === 0 && (
                 <p className="text-gray-500 text-sm mt-4 italic">
@@ -133,8 +133,9 @@ function SideNav({ params }) {
                 </p>
             )}
 
-            {/* Conditionally render the upgrade section */}
+            {/* --- Conditionally render the upgrade section --- */}
             {isLoadingPlan ? (
+                // Show a skeleton loader while the plan is being fetched
                 <div className="absolute bottom-10 w-[85%] space-y-2">
                     <div className="h-2.5 bg-gray-200 rounded-full w-full animate-pulse"></div>
                     <div className="h-4 bg-gray-200 rounded-full w-3/4 animate-pulse"></div>
@@ -150,16 +151,17 @@ function SideNav({ params }) {
                             <strong>{documentList?.length}</strong> out of{" "}
                             <strong>{MAX_FILES}</strong> files used
                         </h2>
-                        <h2 className="text-xs font-light text-[#6C63FF]"> <strong>Upgrade your plan for unlimited access</strong> </h2>
-                        <Link href="/pricing" passHref>
-                            <Button
-                                variant="outline"
-                                size="sm"
-                                className="w-full border-[#6C63FF] text-[#6C63FF] hover:bg-[#f4f3ff] cursor-pointer"
-                            >
-                                Upgrade Plan
-                            </Button>
-                        </Link>
+                        <h2 className="text-xs font-light text-[#6C63FF]">
+                            <strong>Upgrade your plan for unlimited access</strong>
+                        </h2>
+                        <Button
+                            asChild
+                            variant="outline"
+                            size="sm"
+                            className="w-full border-[#6C63FF] text-[#6C63FF] hover:bg-[#f4f3ff] cursor-pointer"
+                        >
+                            <Link href="/pricing">Upgrade Plan</Link>
+                        </Button>
                     </div>
                 )
             )}
