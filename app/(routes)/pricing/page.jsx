@@ -113,7 +113,7 @@ export default function PricingPage() {
                     <Button
                         onClick={onUpgrade}
                         disabled={!user || loading}
-                        className="w-full bg-[#6C63FF] hover:bg-[#5b54d6] text-white rounded-xl text-lg py-6"
+                        className="w-full bg-[#6C63FF] hover:bg-[#5b54d6] text-white rounded-xl text-lg py-6 cursor-pointer"
                     >
                         {loading ? <Loader2 className="animate-spin" /> : "Upgrade Now"}
                     </Button>

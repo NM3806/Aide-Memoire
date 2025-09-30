@@ -5,6 +5,7 @@ import { OrganizationSwitcher, UserButton, useUser } from "@clerk/nextjs";
 import { doc, setDoc } from "firebase/firestore";
 import Link from "next/link";
 import React, { useEffect } from "react";
+import ProBadge from "@/app/_components/ProBadge"; 
 
 function Header() {
     const { user } = useUser();
@@ -16,9 +17,7 @@ function Header() {
     }, [user]);
 
     const saveUserData = async () => {
-        // Use a guard clause to ensure user and email exist
         if (!user?.primaryEmailAddress?.emailAddress) return;
-
         const docId = user.primaryEmailAddress.emailAddress;
         try {
             await setDoc(
@@ -45,7 +44,11 @@ function Header() {
                 afterCreateOrganizationUrl={"/dashboard"}
                 afterLeaveOrganizationUrl={"/dashboard"}
             />
-            <UserButton />
+
+            <div className="flex items-center gap-4">
+                <ProBadge />
+                <UserButton />
+            </div>
         </div>
     );
 }
