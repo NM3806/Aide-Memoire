@@ -30,7 +30,7 @@ function EmojiPickerComponent({ children, setEmojiIcon }) {
               position: "absolute",
               top: position.top,
               left: position.left,
-              zIndex: 9999,
+              zIndex: 1,
             }}
           >
             <EmojiPicker

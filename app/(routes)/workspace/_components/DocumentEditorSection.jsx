@@ -1,5 +1,3 @@
-// app\(routes)\workspace\_components\DocumentEditorSection.jsx
-
 import React, { useState } from "react";
 import DocumentHeader from "./DocumentHeader";
 import DocumentInfo from "./DocumentInfo";
@@ -36,7 +34,7 @@ function DocumentEditorSection({ params }) {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ type: "spring", stiffness: 200 }}
-            className="fixed right-5 bottom-5 cursor-pointer z-50"
+            className="fixed right-5 bottom-5 cursor-pointer z-50" // This is z-50
           >
             <Button
               onClick={() => setOpenComments(!openComments)}
@@ -54,7 +52,7 @@ function DocumentEditorSection({ params }) {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9, y: 20 }}
                 transition={{ duration: 0.25 }}
-                className="fixed right-8 bottom-20 z-50"
+                className="fixed right-8 bottom-20 z-40"
               >
                 <CommentBox onClose={() => setOpenComments(false)} />
               </motion.div>
