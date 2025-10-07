@@ -97,7 +97,7 @@ function SideNav({ params }) {
             transition={{ duration: 0.3 }}
             className="h-screen md:w-72 hidden md:block fixed bg-white border-r border-gray-200 p-5 shadow-sm"
         >
-            {/* ... Top Section (No changes here) ... */}
+            {/* ... Top Section ... */}
             <div className="flex justify-between items-center">
                 <Link href="/dashboard" className="cursor-pointer">
                     <Logo />
@@ -125,7 +125,7 @@ function SideNav({ params }) {
                     {creating ? <Loader2Icon className="h-4 w-4 animate-spin" /> : "+"}
                 </Button>
             </div>
-            {/* ... Document List (No changes here) ... */}
+            {/* ... Document List ... */}
             <DocumentList documentList={documentList} params={params} />
             {documentList.length === 0 && (
                 <p className="text-gray-500 text-sm mt-4 italic">

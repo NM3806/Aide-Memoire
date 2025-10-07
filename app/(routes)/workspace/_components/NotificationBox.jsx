@@ -28,7 +28,6 @@ function NotificationBox({ children, params }) {
         }
     }, [params?.documentId, updateRoomSubscriptionSettings, count]);
 
-
     return (
         <div>
             <Popover>

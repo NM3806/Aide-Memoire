@@ -24,9 +24,9 @@ declare global {
 
     // Custom events, for useBroadcastEvent, useEventListener
     RoomEvent: {};
-      // Example has two events, using a union
-      // | { type: "PLAY" } 
-      // | { type: "REACTION"; emoji: "🔥" };
+    // Example has two events, using a union
+    // | { type: "PLAY" } 
+    // | { type: "REACTION"; emoji: "🔥" };
 
     // Custom metadata set on threads, for useThreads, useCreateThread, etc.
     ThreadMetadata: {
@@ -37,11 +37,11 @@ declare global {
 
     // Custom room info set with resolveRoomsInfo, for useRoomInfo
     RoomInfo: {
-      // Example, rooms with a title and url
-      // title: string;
-      // url: string;
+      // This tells Liveblocks that a room can have a name and an emoji.
+      name: string;
+      emoji: string;
     };
   }
 }
 
-export {};
+export { };
