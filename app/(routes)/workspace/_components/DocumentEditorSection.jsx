@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import DocumentHeader from "./DocumentHeader";
 import DocumentInfo from "./DocumentInfo";
 import { Button } from "@/components/ui/button";
-import { MessageCircle, X } from "lucide-react";
+import { MessageCircle, Sparkles, X } from "lucide-react";
 import CommentBox from "./CommentBox";
 import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
+import GenerateAITemplate from "./GenerateAITemplate";
 
 const RichDocumentEditor = dynamic(() => import("./RichDocumentEditor"), {
   ssr: false,
@@ -13,38 +14,64 @@ const RichDocumentEditor = dynamic(() => import("./RichDocumentEditor"), {
 
 function DocumentEditorSection({ params }) {
   const [openComments, setOpenComments] = useState(false);
+  const editorRef = useRef(null);
+
+  const appendAiOutput = (output) => {
+    if (!editorRef.current || !output.blocks || output.blocks.length === 0) {
+      console.error("Editor is not ready or AI output is empty.");
+      return;
+    }
+    const currentIndex = editorRef.current.blocks.getCurrentBlockIndex();
+    const currentBlock = editorRef.current.blocks.get(currentIndex);
+    const isEmptyPlaceholder = currentBlock.isEmpty && currentBlock.name === 'paragraph';
+
+    output.blocks.forEach((block, index) => {
+      editorRef.current.blocks.insert(
+        block.type,
+        block.data,
+        {},
+        (isEmptyPlaceholder ? currentIndex : currentIndex + 1) + index,
+        true
+      );
+    });
+
+    if (isEmptyPlaceholder) {
+      editorRef.current.blocks.delete(currentIndex + output.blocks.length);
+    }
+  };
 
   return (
     <div>
-      {/* Header */}
       <DocumentHeader />
 
       <div className="p-1">
-        {/* Document Info */}
         <DocumentInfo params={params} />
 
-        {/* Rich Text Editor */}
         <div className="grid grid-cols-4">
           <div className="col-span-4">
-            <RichDocumentEditor params={params} />
+            <RichDocumentEditor params={params} editorRef={editorRef} />
           </div>
 
-          {/* Floating Comment Toggle Button */}
+          {/* === Floating Actions === */}
+          <div className="fixed left-5 bottom-5 md:left-[calc(theme(spacing.72)+theme(spacing.5))] z-50">
+            <GenerateAITemplate setGenerateAIOutput={appendAiOutput} />
+          </div>
+
+          {/* Comment Button remains at the bottom-right */}
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ type: "spring", stiffness: 200 }}
-            className="fixed right-5 bottom-5 cursor-pointer z-50" // This is z-50
+            className="fixed right-5 bottom-5 z-50"
           >
             <Button
               onClick={() => setOpenComments(!openComments)}
-              className="rounded-full p-3 shadow-md bg-[#6C63FF] text-white hover:bg-[#5b54d6]"
+              className="rounded-full h-12 w-12 p-3 shadow-md bg-[#6C63FF] text-white hover:bg-[#5b54d6]"
             >
               {openComments ? <X /> : <MessageCircle />}
             </Button>
           </motion.div>
 
-          {/* Floating Comment Window */}
           <AnimatePresence>
             {openComments && (
               <motion.div

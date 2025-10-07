@@ -14,28 +14,9 @@ import { db } from "@/config/firebaseConfig";
 import { useUser } from "@clerk/nextjs";
 import GenerateAITemplate from "./GenerateAITemplate";
 
-function RichDocumentEditor({ params }) {
-  const editorRef = useRef(null);
+function RichDocumentEditor({ params, editorRef }) {
   const { user } = useUser();
   const isFetched = useRef(false);
-
-  const appendAiOutput = (output) => {
-    if (!editorRef.current || !output.blocks || output.blocks.length === 0) {
-      console.error("Editor is not ready or AI output is empty.");
-      return;
-    }
-    const lastBlockIndex = editorRef.current.blocks.getBlocksCount();
-
-    output.blocks.forEach((block, index) => {
-      editorRef.current.blocks.insert(
-        block.type,
-        block.data,
-        {},
-        lastBlockIndex + index,
-        false
-      );
-    });
-  };
 
   useEffect(() => {
     if (user) InitEditor();
@@ -136,11 +117,6 @@ function RichDocumentEditor({ params }) {
   return (
     <div className="lg:-ml-20">
       <div id="editorjs"></div>
-      <div className="fixed bottom-10 md:ml-80 left-0 z-10">
-        <GenerateAITemplate
-          setGenerateAIOutput={appendAiOutput}
-        />
-      </div>
     </div>
   );
 }
