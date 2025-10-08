@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import DocumentHeader from "./DocumentHeader";
 import DocumentInfo from "./DocumentInfo";
 import { Button } from "@/components/ui/button";
-import { MessageCircle, Sparkles, X } from "lucide-react";
+import { MessageCircle, X } from "lucide-react";
 import CommentBox from "./CommentBox";
 import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
@@ -66,7 +66,7 @@ function DocumentEditorSection({ params }) {
           >
             <Button
               onClick={() => setOpenComments(!openComments)}
-              className="rounded-full h-12 w-12 p-3 shadow-md bg-[#6C63FF] text-white hover:bg-[#5b54d6] cursor-pointer"
+              className="rounded-xl h-11 w-11 p-3 shadow-md bg-[#6C63FF] text-white hover:bg-[#5b54d6] cursor-pointer"
             >
               {openComments ? <X /> : <MessageCircle />}
             </Button>

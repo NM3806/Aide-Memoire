@@ -16,7 +16,7 @@ import { motion } from "framer-motion";
 
 const promptSuggestions = [
   "Blog post about the future of AI",
-  "List of pros and cons for learning React",,
+  "List of pros and cons for learning React",
 ];
 
 export default function GenerateAITemplate({ setGenerateAIOutput }) {
@@ -39,7 +39,10 @@ export default function GenerateAITemplate({ setGenerateAIOutput }) {
       }
     } catch (error) {
       console.error("Error generating AI template:", error);
-      toast.error("Failed to generate content. Please try again.");
+      toast.error(
+        "The AI service is currently experiencing issues. Please try again later.",
+        { duration: 5000 }
+      );
     } finally {
       hideLoader();
       setPrompt("");
@@ -56,13 +59,13 @@ export default function GenerateAITemplate({ setGenerateAIOutput }) {
         >
           <Button
             variant="default"
-            className="rounded-full h-12 w-12 p-3 shadow-md bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer"
+            className="rounded-xl h-11 w-11 p-3 shadow-md bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer"
           >
             <Sparkles />
           </Button>
         </motion.div>
       </PopoverTrigger>
-      
+
       <PopoverContent className="w-80 mb-2" side="top" align="start">
         <div className="grid gap-4">
           <div className="space-y-2">
@@ -85,7 +88,7 @@ export default function GenerateAITemplate({ setGenerateAIOutput }) {
                   key={s}
                   variant="outline"
                   size="sm"
-                  className="w-full justify-start text-left h-auto"
+                  className="w-full justify-start text-left h-auto cursor-pointer"
                   onClick={() => setPrompt(s)}
                 >
                   {s}
@@ -93,7 +96,7 @@ export default function GenerateAITemplate({ setGenerateAIOutput }) {
               ))}
             </div>
           </div>
-          <Button onClick={handleGenerate} disabled={!prompt.trim()}>
+          <Button onClick={handleGenerate} disabled={!prompt.trim()} className={"cursor-pointer"}>
             Generate
           </Button>
         </div>
