@@ -66,7 +66,7 @@ function DocumentEditorSection({ params }) {
           >
             <Button
               onClick={() => setOpenComments(!openComments)}
-              className="rounded-full h-12 w-12 p-3 shadow-md bg-[#6C63FF] text-white hover:bg-[#5b54d6]"
+              className="rounded-full h-12 w-12 p-3 shadow-md bg-[#6C63FF] text-white hover:bg-[#5b54d6] cursor-pointer"
             >
               {openComments ? <X /> : <MessageCircle />}
             </Button>

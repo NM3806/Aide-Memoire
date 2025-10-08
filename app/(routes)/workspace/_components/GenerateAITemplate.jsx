@@ -56,7 +56,7 @@ export default function GenerateAITemplate({ setGenerateAIOutput }) {
         >
           <Button
             variant="default"
-            className="rounded-full h-12 w-12 p-3 shadow-md bg-primary text-primary-foreground hover:bg-primary/90"
+            className="rounded-full h-12 w-12 p-3 shadow-md bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer"
           >
             <Sparkles />
           </Button>
