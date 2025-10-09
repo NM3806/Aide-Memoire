@@ -16,29 +16,45 @@ function DocumentEditorSection({ params }) {
   const [openComments, setOpenComments] = useState(false);
   const editorRef = useRef(null);
 
-  const appendAiOutput = (output) => {
+  const appendAiOutput = async (output) => {
     if (!editorRef.current || !output.blocks || output.blocks.length === 0) {
       console.error("Editor is not ready or AI output is empty.");
       return;
     }
-    const currentIndex = editorRef.current.blocks.getCurrentBlockIndex();
-    const currentBlock = editorRef.current.blocks.get(currentIndex);
-    const isEmptyPlaceholder = currentBlock.isEmpty && currentBlock.name === 'paragraph';
 
-    output.blocks.forEach((block, index) => {
+    const totalBlocks = editorRef.current.blocks.getBlocksCount();
+    let insertIndex = totalBlocks; // default insert at the end
+    let isEmptyPlaceholder = false;
+
+    // Check if last block is an empty paragraph 
+    if (totalBlocks > 0) {
+      const lastIndex = totalBlocks - 1;
+      const savedData = await editorRef.current.save();
+      const lastBlock = savedData.blocks[lastIndex];
+
+      if (lastBlock && lastBlock.type === "paragraph" && !lastBlock.data.text.trim()) {
+        insertIndex = lastIndex;
+        isEmptyPlaceholder = true;
+      }
+    }
+
+    // Insert each AI-generated block
+    output.blocks.forEach((block, idx) => {
       editorRef.current.blocks.insert(
         block.type,
         block.data,
         {},
-        (isEmptyPlaceholder ? currentIndex : currentIndex + 1) + index,
+        insertIndex + idx,
         true
       );
     });
 
+    // If placeholder existed, remove it after inserting
     if (isEmptyPlaceholder) {
-      editorRef.current.blocks.delete(currentIndex + output.blocks.length);
+      editorRef.current.blocks.delete(insertIndex + output.blocks.length);
     }
   };
+
 
   return (
     <div>
