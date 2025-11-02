@@ -1,7 +1,13 @@
+import { redirect } from 'next/navigation';
+import { auth } from '@clerk/nextjs/server';
+  
 export default function Home() {
-  return (
-    <div className="">
-      <h1>hi</h1>
-    </div>
-  );
+  const { userId } = auth();
+
+  if (userId) {
+    redirect('/dashboard');
+  } else {
+    redirect('https://aide-memoire-nm.vercel.app/');
+  }
+
 }
