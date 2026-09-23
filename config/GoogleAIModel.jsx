@@ -3,7 +3,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY);
 
 export async function generateEditorTemplate(prompt) {
-  const model = genAI.getGenerativeModel({ model: "gemma-3-4b-it" });
+  const model = genAI.getGenerativeModel({ model: "gemini-3.5-flash-lite" });
 
   const detailedPrompt = `
 You are an expert assistant that generates structured JSON for Editor.js.
