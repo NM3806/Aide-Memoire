@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { razorpay } from '@/lib/razorpay';
+import { getRazorpay } from '@/lib/razorpay';
 import { db } from '@/config/firebaseConfig';
 import { query, collection, where, getDocs, updateDoc } from "firebase/firestore";
 
@@ -14,6 +14,11 @@ const findUser = async (clerkId) => {
 
 export async function POST(req) {
     try {
+        if (!process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
+            return new NextResponse("Razorpay credentials are not configured", { status: 500 });
+        }
+
+        const razorpay = getRazorpay();
         const { planId, email, userId } = await req.json();
 
         if (!planId || !email || !userId) {

@@ -1,11 +1,21 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { Liveblocks } from "@liveblocks/node";
 
-const liveblocks = new Liveblocks({
-  secret: process.env.LIVEBLOCK_SK,
-});
+const liveblocksSecret =
+  process.env.LIVEBLOCKS_SECRET_KEY ?? process.env.LIVEBLOCK_SK;
 
 export async function POST(request) {
+  if (!liveblocksSecret) {
+    return Response.json(
+      { error: "Missing Liveblocks secret key." },
+      { status: 500 }
+    );
+  }
+
+  const liveblocks = new Liveblocks({
+    secret: liveblocksSecret,
+  });
+
   // Get the current user from your database
   const user = await currentUser();
 
